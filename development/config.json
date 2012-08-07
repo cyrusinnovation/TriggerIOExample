@@ -1,0 +1,15 @@
+{
+	"author": "bbrown@cyrusinnovation.com", 
+	"config_version": "2", 
+	"description": "An awesome app.", 
+	"modules": {
+		"contact": true, 
+		"geolocation": true, 
+		"is": true, 
+		"media": true, 
+		"prefs": true
+	}, 
+	"name": "HelloTrigger2",
+	"platform_version": "v1.4", 
+	"version": "0.1"
+}

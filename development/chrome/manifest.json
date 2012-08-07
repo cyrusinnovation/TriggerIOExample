@@ -1,0 +1,8 @@
+{
+	"name": "HelloTrigger2",
+	"version": "0.1",
+	"description": "An awesome app.",
+	"permissions": [],
+	"background": {"page": "forge.html"},
+	"manifest_version": 2
+}

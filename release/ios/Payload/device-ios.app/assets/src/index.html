@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<head><script src='../forge/all.js'></script>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Example App</title>
+        <!--<script src="https://trigger.io/catalyst/target/target-script-min.js#EE8D1597-6B1A-4C29-909A-C461EF991E23"></script>-->
+        <link href="css/jquery.mobile-1.1.1.min.css" rel="stylesheet"  />
+        <link href="css/my.css" rel="stylesheet" />
+        <link href="css/index.css" rel="stylesheet" />
+        <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCexkcq4ASP6JUrpSUD8VAOBPpiSMmbu4M&sensor=true">  </script>
+        <script src="js/jquery-1.7.1.min.js"></script>
+        <script src="js/jquery.mobile-1.1.1.min.js"></script>
+        <script src="js/jquery.ui.map.full.min.js"> </script>
+        <script src="js/my.js"></script>
+        <script src="js/google_map.js"></script>
+        <script src="js/picture_stuff.js"></script>
+</head>
+<body>
+
+    <!-- Home -->
+    <div data-role="page" id="page1">
+        <div data-theme="a" data-role="header">
+            <h3>
+                Cyrus Innovation
+            </h3>
+        </div>
+        <div data-role="content" style="padding: 15px">
+            <ul data-role="listview" data-divider-theme="a" data-inset="true">
+                <li data-role="list-divider" role="heading">
+                    Cool Actions
+                </li>
+                <li data-theme="a">
+                    <a href="#page2" data-transition="slide">
+                        Get Directions
+                    </a>
+                </li>
+                <li data-theme="a">
+                    <a href="#page3" data-transition="slide">
+                        Share Photos
+                    </a>
+                </li>
+                <li data-theme="a">
+                    <a href="#page4" data-transition="slide">
+                        Test Photo Page
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Map -->
+    <div data-role="page" id="page2">
+        <div data-theme="a" data-role="header">
+            <h3>
+                Cyrus Innovation
+            </h3>
+            <a data-role="button" data-rel="back" data-transition="slide" href="#page1" data-icon="home" data-iconpos="left" class="ui-btn-left">
+                Home
+            </a>
+        </div>
+        <div data-role="content">
+
+            <div id="map_canvas"></div>
+            <a data-theme="a" id="get_directions" data-role="button" href="#">
+                Get Directions to Cyrus
+            </a>
+            <div id="directions"></div>
+
+        </div>
+        <div id="loading_overlay" data-role="content" class="hidden">
+            <img id="imgAjaxLoader" class="ajaxLoader" src="css/images/ajax-loader.gif" />
+        </div>
+    </div>
+
+    <!-- Camera -->
+    <div data-role="page" id="page3">
+        <div data-theme="a" data-role="header">
+            <h3>
+                Cyrus Innovation
+            </h3>
+            <a data-role="button" data-rel="back" data-transition="slide" href="#page1" data-icon="home" data-iconpos="left" class="ui-btn-left">
+                Home
+            </a>
+        </div>
+        <div data-role="content" style="padding: 15px">
+            <a id="take_picture" data-theme="a" data-role="button">Take Picture</a>
+            <a id="select_picture" data-theme="a" data-role="button">Select Picture from Album</a>
+        </div>
+    </div>
+
+    <!-- Picture -->
+    <div data-role="page" id="page4">
+        <div data-theme="a" data-role="header" class="pge-header">
+            <h3>
+                Cyrus Innovation
+            </h3>
+            <a data-role="button" data-rel="back" data-transition="slide" href="#page3" data-icon="arrow-l" data-iconpos="left" class="ui-btn-left">
+                Back
+            </a>
+        </div>
+        <div data-role="content">
+            <img id="myImage"/>
+        </div>
+        <div class="pge-footer"  data-position="fixed">
+            <div data-role="footer">
+                <a id="show-footer-menu" class="footer-menu-button" data-theme="a" data-role="button" data-icon="arrow-u">
+                    Open Photo Share Menu
+                </a>
+                <a id="hide-footer-menu" class="footer-menu-button" data-theme="a" data-role="button" data-icon="arrow-d" style="display: none;">
+                    Close Photo Share Menu
+                </a>
+            </div>
+            <div id="footer-menu" class="hidden">
+                <a id="share-email"  data-theme="a" data-role="button">
+                    Share over Email
+                </a>
+                <a id="share-text"  data-theme="a" data-role="button">
+                    Share over Text
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">HelloTrigger2</string>
+    <string name="uuid">8e91b4c4dfd511e1a71612313d1adcbe</string>
+    <string name="config_hash">bdb3b1a31523d80a62d413cf51d177a911b2dba1</string>
+    <string name="trigger_domain">https://trigger.io</string>
+    <string name="payments_publicKey">PAYMENTS_PUBLIC_KEY_HERE</string>
+    <string name="splashimage">SPLASH_IMAGE_HERE</string>
+    <string name="splashimage_landscape">SPLASH_IMAGE_LANDSCAPE_HERE</string>
+    <string name="facebook_appid" />
+    <string-array name="modules">
+        <item>io.trigger.forge.android.modules.prefs</item><item>io.trigger.forge.android.modules.media</item><item>io.trigger.forge.android.modules.contact</item><item>io.trigger.forge.android.modules.internal</item>
+        <item>io.trigger.forge.android.modules.logging</item>
+        <item>io.trigger.forge.android.modules.launchimage</item>
+        <item>io.trigger.forge.android.modules.event</item>
+    </string-array>
+</resources>
