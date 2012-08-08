@@ -19,7 +19,6 @@
   "run-firefox/simplejson/decoder.py": "869e5f964ae81e20ced2b8bc39ecb21a", 
   "poster/__init__.py": "a6d86be4adc72c4b7357e6c6bf5769b1", 
   "run-firefox/cuddlefish/docs/generate.py": "a45c810b3d1d34e195e2a73ab7dc8a06", 
-  "hash.json": "b4446a1015d83e5ad30d09837fd326a6", 
   "generate_hash.py": "bae615b6696fd999a92c0db162120fe6", 
   "run-firefox/simplejson/encoder.py": "99236034160a71f40d1529b6c2986653", 
   "invalidating_config.json": "9ec587bba192690243bfb8dc3f964974", 

@@ -4,12 +4,16 @@
 	"description": "An awesome app.", 
 	"modules": {
 		"contact": true, 
+		"file": true, 
 		"geolocation": true, 
 		"is": true, 
+		"logging": {
+			"level": "DEBUG"
+		}, 
 		"media": true, 
 		"prefs": true
 	}, 
-	"name": "HelloTrigger2",
+	"name": "Cross Platform Ex", 
 	"platform_version": "v1.4", 
 	"version": "0.1"
 }

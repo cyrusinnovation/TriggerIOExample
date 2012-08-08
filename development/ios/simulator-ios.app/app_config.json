@@ -1,5 +1,5 @@
 {
-  "config_hash": "bdb3b1a31523d80a62d413cf51d177a911b2dba1", 
+  "config_hash": "98a69e170d2982c979322cdda9df8128095cc718", 
   "facebook_appid": "", 
   "modules": [
     "internal", 
@@ -7,6 +7,7 @@
     "logging", 
     "event", 
     "contact", 
+    "file", 
     "geolocation", 
     "media", 
     "prefs"

@@ -208,7 +208,7 @@ class ToolConfig(dict):
 			return value
 		elif key in self._defaults:
 			value = self._defaults[key]
-			self.log.debug("Using configuration file value {value} for {key}".format(key=key, value=value))
+			self.log.debug("Using configuration file value {value} for {key}".format(key=key, value=repr(value)))
 			return value
 		else:
 			raise KeyError("No tool configuration found for key {key}: you must supply "

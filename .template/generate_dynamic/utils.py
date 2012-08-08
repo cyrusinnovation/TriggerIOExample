@@ -310,7 +310,6 @@ def run_shell(*args, **kw):
 			state.error = e
 
 
-	LOG.debug('Running: {cmd}'.format(cmd=subprocess.list2cmdline(args)))
 	if check_for_interrupt:
 		try:
 			call = lib.current_call()

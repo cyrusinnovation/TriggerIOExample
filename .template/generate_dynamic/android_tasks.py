@@ -41,6 +41,12 @@ def _create_path_info_from_sdk(sdk):
 		sdk=sdk,
 	)
 
+NO_ADB_TEMPLATE = """Tried to run the Android Debug Bridge at:
+{adb_location}
+
+But it wasn't there! This probably means you need to run the Android SDK Manager and download the Android platform-tools.
+"""
+
 def _run_adb(cmd, timeout, path_info):
 	runner = {
 		"process": None,
@@ -49,11 +55,11 @@ def _run_adb(cmd, timeout, path_info):
 	def target():
 		try:
 			runner['process'] = lib.PopenWithoutNewConsole(cmd, stdout=PIPE, stderr=STDOUT)
-		except Exception:
-			LOG.error("problem finding the android debug bridge at: %s" % path_info.adb)
-			# XXX: prompt to run the sdk manager, then retry?
-			LOG.error("this probably means you need to run the Android SDK manager and download the Android platform-tools.")
-			raise AndroidError
+		except OSError as e:
+			if e.errno == errno.ENOENT:
+				# XXX: prompt to update the platform tools, then retry?
+				raise AndroidError(NO_ADB_TEMPLATE.format(adb_location=path_info.adb))
+			raise
 
 		runner['std_out'] = runner['process'].communicate()[0]
 
@@ -87,16 +93,6 @@ def _restart_adb(path_info):
 	_kill_adb()
 	
 	run_detached([path_info.adb, 'start-server'], wait=True)
-
-def _look_for_java():
-	possible_jre_locations = [
-		r"C:\Program Files\Java\jre7",
-		r"C:\Program Files\Java\jre6",
-		r"C:\Program Files (x86)\Java\jre7",
-		r"C:\Program Files (x86)\Java\jre6",
-	]
-
-	return [directory for directory in possible_jre_locations if path.isdir(directory)]
 
 def _android_sdk_url():
 	if sys.platform.startswith("win"):
@@ -200,7 +196,9 @@ def _update_sdk(path_info):
 			while not finished:
 				time.sleep(5)
 				try:
-					_kill_adb()
+					# XXX: still time from check to use issue, but close enough
+					if not finished:
+						_kill_adb()
 				except Exception:
 					pass
 		adb_killing_thread = threading.Thread(target=kill_adb_occasionally)
@@ -380,18 +378,11 @@ def run_detached(args, wait=True):
 				aggregated_output.write(output)
 				LOG.debug(output.rstrip('\r\n'))
 
-def check_for_java():
-	'Return True java exists on the path and can be invoked; False otherwise'
-	with open(os.devnull, 'w') as devnull:
-		try:
-			proc = lib.PopenWithoutNewConsole(['java', '-version'], stdout=devnull, stderr=devnull)
-			proc.communicate()[0]
-			return proc.returncode == 0
-		except:
-			return False
+def _have_android_8_available(path_info):
+	targets = run_shell(path_info.android, 'list', 'targets', '-c').split('\n')
+	return 'android-8' in targets
 
 def _create_avd(path_info):
-	LOG.info('Creating AVD')
 	args = [
 		path_info.android,
 		"create",
@@ -407,10 +398,9 @@ def _create_avd(path_info):
 	proc = lib.PopenWithoutNewConsole(args, stdin=PIPE, stdout=PIPE, stderr=STDOUT)
 	time.sleep(0.1)
 	proc_std = proc.communicate(input='\n')[0]
-	if proc.returncode != 0:
-		LOG.error('failed: %s' % (proc_std))
-		raise AndroidError
-	LOG.debug('Output:\n'+proc_std)
+
+	if proc.returncode != 0 or (proc_std and proc_std.startswith("Error")):
+		raise ShellError(message="Error creating Android Virtual Device", output=proc_std)
 
 def _launch_avd(path_info):
 	run_detached(
@@ -485,7 +475,7 @@ def _sign_zipf_release(lib_path, jre, zipf_name, signed_zipf_name, keystore, sto
 		signed_zipf_name=signed_zipf_name,
 		zipf_name=zipf_name,
 	)
-	
+
 def _align_apk(path_info, signed_zipf_name, out_apk_name):
 	LOG.info('Aligning apk')
 
@@ -509,13 +499,26 @@ def _follow_log(path_info, chosen_device):
 
 	run_shell(path_info.adb, '-s', chosen_device, 'logcat', 'WebCore:D', 'Forge:D', '*:s', command_log_level=logging.INFO, check_for_interrupt=True)
 
+def _have_avd(path_info):
+	return path.isdir(path.join(path_info.sdk, 'forge-avd'))
+
 def _create_avd_if_necessary(path_info):
 	# Create avd
 	LOG.info('Checking for previously created AVD')
-	if path.isdir(path.join(path_info.sdk, 'forge-avd')):
+	if _have_avd(path_info):
 		LOG.info('Existing AVD found')
 	else:
-		_create_avd(path_info)
+		try:
+			_create_avd(path_info)
+		except ShellError as e:
+			if _have_android_8_available(path_info):
+				raise
+
+			LOG.info('Error creating Android Virtual Device. Attempting to update Android SDK and retry')
+			_update_sdk(path_info)
+
+			LOG.info('Attempting to create Android Virtual Device again')
+			_create_avd(path_info)
 
 def _get_available_devices(path_info, try_count=0):
 	proc_std = _run_adb([path_info.adb, 'devices'], timeout=10, path_info=path_info)
@@ -535,23 +538,65 @@ def _get_available_devices(path_info, try_count=0):
 def clean_android(build):
 	pass
 
+COMMON_JAVA_LOCATIONS = [
+	r"C:\Program Files\Java\jre7",
+	r"C:\Program Files\Java\jre6",
+	r"C:\Program Files (x86)\Java\jre7",
+	r"C:\Program Files (x86)\Java\jre6",
+]
+
+NO_JAVA_TEMPLATE = """Java was not available in your PATH nor was it found in any of these folders:
+{searched}
+
+You need to install a Java runtime in order to deploy or package for Android. You can get one from here:
+http://java.com/en/download/index.jsp
+"""
+
+def _java_is_in_path():
+	"""Return True java exists on the path and can be invoked; False otherwise"""
+	with open(os.devnull, 'w') as devnull:
+		try:
+			proc = lib.PopenWithoutNewConsole(['java', '-version'], stdout=devnull, stderr=devnull)
+			proc.communicate()[0]
+			return proc.returncode == 0
+		except:
+			return False
+
+def _look_for_java(possible_jre_locations):
+	"""Search for a Java Runtime Environment on the filesystem and return it;
+	raise an exception if we can't find one.
+	"""
+	found = [directory for directory in possible_jre_locations if path.isdir(directory)]
+
+	if not found:
+		raise AndroidError(NO_JAVA_TEMPLATE.format(searched="\n".join(possible_jre_locations)))
+
+	return path.join(found[0], 'bin')
+
 def _get_jre():
-	result = ""
-	if not check_for_java():
-		jres = _look_for_java()
-		if not jres:
-			raise AndroidError("Java not found: Java must be installed and available in your path in order to run Android")
-		result = path.join(jres[0], 'bin')
-	return result
+	"""Return prefix to use when executing java.
+	
+	Will return empty string if java is in PATH.
+	Will raise if java not available at all.
+	"""
+	LOG.debug('Checking to see if java is already in the PATH')
+	if _java_is_in_path():
+		LOG.debug('Can run java directly from PATH')
+		return ''
+
+	LOG.debug('Checking common installation locations for java')
+	jre = _look_for_java(COMMON_JAVA_LOCATIONS)
+
+	LOG.debug('Found java in %s' % jre)
+	return jre
 
 def create_apk(build, sdk, output_filename, interactive=True):
-	'''
+	"""Create an APK file from the the contents of development/android.
+
 	:param output_filename: name of the file to which we'll write
-	'''
-	path_info = _find_or_install_sdk(build)
-	jre = ""
- 
+	"""
 	jre = _get_jre()
+	path_info = _find_or_install_sdk(build)
 
 	lib_path = path.normpath(path.join('.template', 'lib'))
 	dev_dir = path.normpath(path.join('development', 'android'))
@@ -582,13 +627,13 @@ def run_android(build, build_type_dir, sdk, device, interactive=True,
 	# TODO: remove interactive parameter. this information is contained in the
 	# build, but we should never use this anyway, as we can now interact with
 	# the toolkit from here
+	jre = _get_jre()
 	path_info = _find_or_install_sdk(build)
 
 	LOG.info('Starting ADB if not running')
 	run_detached([path_info.adb, 'start-server'], wait=True)
 
 	LOG.info('Looking for Android device')
-	
 	available_devices = _get_available_devices(path_info)
 
 	if not available_devices and device and device.lower() == 'emulator':
@@ -612,7 +657,7 @@ def run_android(build, build_type_dir, sdk, device, interactive=True,
 			_launch_avd(path_info)
 			return run_android(build, build_type_dir, sdk, device,
 							   interactive=interactive)
-		else: 
+		else:
 			device = emulators[0]
 
 	if device:
@@ -719,8 +764,10 @@ def _lookup_or_prompt_for_signing_info(build):
 		known_info.update(response['data'])
 
 	return known_info
+
 @task
 def package_android(build):
+	jre = _get_jre()
 	path_info = _find_or_install_sdk(build)
 
 	lib_path = path.normpath(path.join('.template', 'lib'))
@@ -730,7 +777,6 @@ def package_android(build):
 	
 	signing_info["keystore"] = lib.expand_relative_path(build,
 			signing_info["keystore"])
-	jre = _get_jre() or ""
 
 	LOG.info('Creating Android .apk file')
 	package_name = _generate_package_name(build)
