@@ -1,14 +1,14 @@
 <resources>
     <string name="app_name">Cross Platform Ex</string>
     <string name="uuid">8e91b4c4dfd511e1a71612313d1adcbe</string>
-    <string name="config_hash">98a69e170d2982c979322cdda9df8128095cc718</string>
+    <string name="config_hash">b51709a409bb030ba8f2321a333c8396126c868a</string>
     <string name="trigger_domain">https://trigger.io</string>
     <string name="payments_publicKey">PAYMENTS_PUBLIC_KEY_HERE</string>
     <string name="splashimage">SPLASH_IMAGE_HERE</string>
     <string name="splashimage_landscape">SPLASH_IMAGE_LANDSCAPE_HERE</string>
     <string name="facebook_appid" />
     <string-array name="modules">
-        <item>io.trigger.forge.android.modules.prefs</item><item>io.trigger.forge.android.modules.media</item><item>io.trigger.forge.android.modules.file</item><item>io.trigger.forge.android.modules.contact</item><item>io.trigger.forge.android.modules.internal</item>
+        <item>io.trigger.forge.android.modules.sms</item><item>io.trigger.forge.android.modules.prefs</item><item>io.trigger.forge.android.modules.media</item><item>io.trigger.forge.android.modules.file</item><item>io.trigger.forge.android.modules.contact</item><item>io.trigger.forge.android.modules.internal</item>
         <item>io.trigger.forge.android.modules.logging</item>
         <item>io.trigger.forge.android.modules.launchimage</item>
         <item>io.trigger.forge.android.modules.event</item>

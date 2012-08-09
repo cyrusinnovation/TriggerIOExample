@@ -2,38 +2,28 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!--Main app setup-->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Example App</title>
     <script src="https://trigger.io/catalyst/target/target-script-min.js#DA825EFE-4938-4DCB-84BA-F68B0B2B5574"></script>
 
-    <style type="text/css">
-        html { height: 100% }
-        body { height: 100%; margin: 0; padding: 0 }
-    </style>
+    <!--Styling-->
     <style type="text/css" media="screen">
         @import "themes/css/jqtouch.css";
-        @import "css/picture_stuff.css";
+        @import "css/application.css";
     </style>
-    <script type="text/javascript"
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCexkcq4ASP6JUrpSUD8VAOBPpiSMmbu4M&sensor=true">
-    </script>
 
+    <!--Javascript Libraries-->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCexkcq4ASP6JUrpSUD8VAOBPpiSMmbu4M&sensor=true"></script>
     <script type="text/javascript" src="js/zepto.min.js"></script>
     <script type="text/javascript" src="js/jqtouch.min.js"></script>
 
-    <script type="text/javascript">
-        $(document).ready(function(){
-            var jQT = new $.jQTouch({
-                icon: 'icon.png',
-                startupScreen: 'img/startup.png'
-            });
-        });
-    </script>
-
+    <!--My javascript-->
+    <script type="text/javascript" src="js/application.js"></script>
     <script type="text/javascript" src="js/google_map.js"></script>
-
     <script type="text/javascript" src="js/picture_stuff.js"></script>
+    <script type="text/javascript" src="js/contacts_stuff.js"></script>
 </head>
 
 <body>
@@ -43,13 +33,13 @@
         </div>
         <ul class="edgetoedge">
             <li class="arrow">
-                <a href="#directions-page">Get Directions</a>
+                <a href="#directions-page">Map aMusement</a>
             </li>
             <li class="arrow">
-                <a href="#camera-page">Share Photos</a>
+                <a href="#camera-page">Phun with Photos</a>
             </li>
             <li class="arrow">
-                <a href="#image-page">Test Photo Page</a>
+                <a href="#sms-page">Contact a Comrade</a>
             </li>
         </ul>
     </div>
@@ -60,7 +50,7 @@
             <h1>Directions</h1>
             <a class="button back" href="#">Back</a>
         </div>
-        <div id="map-canvas" style="width:320px; height:320px"></div>
+        <div id="map-canvas" style="width:100%; height:80%"></div>
 
         <p>
             <a id="get-directions" class="button">Get Directions to Cyrus</a>
@@ -85,8 +75,8 @@
         </ul>
     </div>
 
-     Picture
-    <div id="image-page">
+     <!--Picture-->
+    <div id="image-page" style="width:100%; height:100%">
         <div class="toolbar">
             <a class="button back" href="#">Back</a>
         </div>
@@ -94,15 +84,24 @@
         <a class="button slideup" href="#image-actions">+</a>
     </div>
 
-    Footer with image actions
+    <!--Footer with image actions-->
     <div id="image-actions">
-        <a id="share-email">Share over Email</a>
-        <a id="share-text">Share over Text</a>
+        <div class="toolbar">
+            <a class="button back" href="#">Back</a>
+        </div>
+        <a id="share-fb"class="button">Share over Facebook</a>
     </div>
 
+    <!--Text a contact-->
+    <div id="sms-page">
+        <div class="toolbar">
+            <h1>Text a contact!</h1>
+            <a class="button back" href="#">Back</a>
+        </div>
+        <ul class="edgetoedge">
+            <li class="arrow"><a id="select-contact" >Select Contact</a></li>
+        </ul>
+    </div>
 
 </body>
 </html>
-
-        <!--<script type="text/css" src="css/picture_stuff.css"></script>-->
-        <!--<script src="http://maps.google.com/maps/api/js?key=AIzaSyCexkcq4ASP6JUrpSUD8VAOBPpiSMmbu4M&sensor=true"></script>-->

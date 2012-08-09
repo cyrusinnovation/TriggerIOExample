@@ -11,7 +11,8 @@
 			"level": "DEBUG"
 		}, 
 		"media": true, 
-		"prefs": true
+		"prefs": true, 
+		"sms": true
 	}, 
 	"name": "Cross Platform Ex", 
 	"platform_version": "v1.4", 

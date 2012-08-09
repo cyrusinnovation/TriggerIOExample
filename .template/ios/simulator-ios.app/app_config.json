@@ -10,7 +10,8 @@
     "file", 
     "geolocation", 
     "media", 
-    "prefs"
+    "prefs", 
+    "sms"
   ], 
   "trigger_domain": "TRIGGER_DOMAIN_HERE", 
   "uuid": "UUID_HERE"

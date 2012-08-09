@@ -8,7 +8,7 @@
     <string name="splashimage_landscape">SPLASH_IMAGE_LANDSCAPE_HERE</string>
     <string name="facebook_appid" />
     <string-array name="modules">
-        <item>io.trigger.forge.android.modules.prefs</item><item>io.trigger.forge.android.modules.media</item><item>io.trigger.forge.android.modules.file</item><item>io.trigger.forge.android.modules.contact</item><item>io.trigger.forge.android.modules.internal</item>
+        <item>io.trigger.forge.android.modules.sms</item><item>io.trigger.forge.android.modules.prefs</item><item>io.trigger.forge.android.modules.media</item><item>io.trigger.forge.android.modules.file</item><item>io.trigger.forge.android.modules.contact</item><item>io.trigger.forge.android.modules.internal</item>
         <item>io.trigger.forge.android.modules.logging</item>
         <item>io.trigger.forge.android.modules.launchimage</item>
         <item>io.trigger.forge.android.modules.event</item>

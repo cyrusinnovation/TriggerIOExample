@@ -1,5 +1,5 @@
 {
-  "config_hash": "98a69e170d2982c979322cdda9df8128095cc718", 
+  "config_hash": "b51709a409bb030ba8f2321a333c8396126c868a", 
   "facebook_appid": "", 
   "modules": [
     "internal", 
@@ -10,7 +10,8 @@
     "file", 
     "geolocation", 
     "media", 
-    "prefs"
+    "prefs", 
+    "sms"
   ], 
   "trigger_domain": "https://trigger.io", 
   "uuid": "8e91b4c4dfd511e1a71612313d1adcbe"
