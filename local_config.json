@@ -1,6 +1,6 @@
 {
     "ios": {
-        "device": "simulator", 
+        "device": "device", 
         "profiles": {
             "DEFAULT": {
                 "provisioning_profile": "/Users/cyrus/Library/MobileDevice/Provisioning Profiles/B55FB25B-1878-4D89-B371-20A17660740C.mobileprovision", 

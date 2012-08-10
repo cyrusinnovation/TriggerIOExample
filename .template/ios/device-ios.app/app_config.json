@@ -1,12 +1,13 @@
 {
   "config_hash": "CONFIG_HASH_HERE", 
-  "facebook_appid": "", 
+  "facebook_appid": "347589518649235", 
   "modules": [
     "internal", 
     "launchimage", 
     "logging", 
     "event", 
     "contact", 
+    "facebook", 
     "file", 
     "geolocation", 
     "media", 

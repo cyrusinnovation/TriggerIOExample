@@ -4,6 +4,9 @@
 	"description": "An awesome app.", 
 	"modules": {
 		"contact": true, 
+		"facebook": {
+			"appid": "347589518649235"
+		}, 
 		"file": true, 
 		"geolocation": true, 
 		"is": true, 

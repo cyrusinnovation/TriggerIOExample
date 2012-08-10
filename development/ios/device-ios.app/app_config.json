@@ -1,12 +1,13 @@
 {
-  "config_hash": "b51709a409bb030ba8f2321a333c8396126c868a", 
-  "facebook_appid": "", 
+  "config_hash": "0875ec75b79c00c369aecd6268363363077fd3f4", 
+  "facebook_appid": "347589518649235", 
   "modules": [
     "internal", 
     "launchimage", 
     "logging", 
     "event", 
     "contact", 
+    "facebook", 
     "file", 
     "geolocation", 
     "media", 
