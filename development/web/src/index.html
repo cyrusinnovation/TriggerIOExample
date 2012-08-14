@@ -53,11 +53,11 @@
             <h1>Directions</h1>
             <a class="button back" href="#">Back</a>
         </div>
+
         <div id="map-canvas" style="width:100%; height:80%"></div>
 
-        <p>
-            <a id="get-directions" class="button">Get Directions to Cyrus</a>
-        </p>
+        <p><a id="get-directions" class="button">Get Directions to Cyrus</a></p>
+
         <div id="directionsPanel"></div>
 
         <div id="loading_overlay" style="display:none; z-index:100;">
@@ -84,12 +84,15 @@
             <a class="button back" href="#">Back</a>
         </div>
         <img id="myImage"/>
+        
+        <a id="action-sheet-btn" class="button">Action Menu</a>
 
         <!--Action sheet with image actions-->
         <div id="action-sheet" >
             <div class="action-elem"><a class="action-label">Actions</a></div>
-            <div class="action-elem action-button"><a id="share-fb"class="">Share over Facebook</a></div>
-            <div class="action-elem action-button"><a id="share-twitter"class="">Share over Twitter</a></div>
+            <div id="share-fb" class="action-elem action-button"><a>Share over Facebook</a></div>
+            <div id="share-twitter" class="action-elem action-button"><a>Share over Twitter</a></div>
+            <div id="cancel-btn" class="action-elem action-button"><a>Cancel</a></div>
         </div>
 
 

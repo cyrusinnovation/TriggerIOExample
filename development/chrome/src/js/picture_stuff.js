@@ -15,6 +15,20 @@ $(document).ready(function () {
         postToFeed(title, message, photo_url);
     });
 
+    $('#action-sheet-btn').tap(function(){
+        $('#action-sheet').show().removeClass('animate-out').addClass('animate-in');
+    });
+
+    $('#cancel-btn').tap(function(){
+        $('#action-sheet').removeClass('animate-in').addClass('animate-out');
+    });
+//    $('#image-page').click( function(){
+//        var height = $(window).height();
+//        alert('height: '+height);
+//        $('#action-sheet').css('height',40).css('top',height-40);
+//    });
+
+
 });
 
 function getImageAndDisplay(sourceType){
