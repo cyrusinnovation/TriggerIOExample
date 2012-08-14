@@ -14,6 +14,7 @@ $(document).ready(function () {
         var photo_url = $('#myImage').attr('src');
         postToFeed(title, message, photo_url);
     });
+
 });
 
 function getImageAndDisplay(sourceType){

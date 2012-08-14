@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Cross Platform Ex</string>
     <string name="uuid">8e91b4c4dfd511e1a71612313d1adcbe</string>
-    <string name="config_hash">0875ec75b79c00c369aecd6268363363077fd3f4</string>
+    <string name="config_hash">3a0f675b1f0011d90d692eeab0dc40ada1e79ccd</string>
     <string name="trigger_domain">https://trigger.io</string>
     <string name="payments_publicKey">PAYMENTS_PUBLIC_KEY_HERE</string>
     <string name="splashimage">SPLASH_IMAGE_HERE</string>

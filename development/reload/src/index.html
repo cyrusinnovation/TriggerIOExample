@@ -16,7 +16,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Example App</title>
-    <script src="https://trigger.io/catalyst/target/target-script-min.js#DA825EFE-4938-4DCB-84BA-F68B0B2B5574"></script>
+    <script src="https://trigger.io/catalyst/target/target-script-min.js#242EF207-20D7-43AC-857E-F1558FBF892F"></script>
 
     <!--Styling-->
     <style type="text/css" media="screen">
@@ -47,6 +47,9 @@
             </li>
             <li class="arrow">
                 <a href="#camera-page">Phun with Photos</a>
+            </li>
+            <li class="arrow">
+                <a href="#image-page">View Photo</a>
             </li>
             <li class="arrow">
                 <a href="#sms-page">Contact a Comrade</a>
@@ -91,16 +94,18 @@
             <a class="button back" href="#">Back</a>
         </div>
         <img id="myImage"/>
-        <a class="button slideup" href="#image-actions">+</a>
+
+        <!--Action sheet with image actions-->
+        <div id="action-sheet" >
+            <div class="action-elem"><a class="action-label">Actions</a></div>
+            <div class="action-elem action-button"><a id="share-fb"class="">Share over Facebook</a></div>
+            <div class="action-elem action-button"><a id="share-twitter"class="">Share over Twitter</a></div>
+        </div>
+
+
     </div>
 
-    <!--Footer with image actions-->
-    <div id="image-actions">
-        <div class="toolbar">
-            <a class="button back" href="#">Back</a>
-        </div>
-        <a id="share-fb"class="button">Share over Facebook</a>
-    </div>
+
 
     <!--Text a contact-->
     <div id="sms-page">

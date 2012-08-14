@@ -9,12 +9,12 @@ $(document).ready(function () {
 
     // Image page menu
     $('#share-fb').tap(function () {
-        alert('Share to Facebook!');
         var title = "Mobile Upload"
         var message = "My most recent picture brought to you by Cyrus Innovation!";
         var photo_url = $('#myImage').attr('src');
         postToFeed(title, message, photo_url);
     });
+
 });
 
 function getImageAndDisplay(sourceType){
